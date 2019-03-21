@@ -1,0 +1,49 @@
+{%- extends "base.html" %}
+
+
+{% include "librairies.html" %}
+{%- block content %}
+  <div class="content">
+
+
+          <p id="validation-success" class="alert alert-success" style="display: none;">Votre compte a bien été validé. Veuillez vous connecter avec votre identifiant et votre mot de passe.</p>
+
+          <p id="validation-error"  class="alert alert-warning" style="display: none;">Il est possible que celui-ci ait été placé par votre boite mail dans votre dossier <i>"spam"</i> ou <i>"courrier indésirable"</i>. Pensez donc à vérifier celui-ci si vous ne trouvez pas notre e-mail dans votre boîte de réception habituelle.</p>
+
+  </div>
+      <script>
+
+      var token = "{{ token }}";
+
+      if (token) {
+
+  $("#validation-success").hide();
+  $("#pending").show();
+  $("form").hide();
+  $.ajax({
+      type:'POST',
+      url: '/pypn/register/post_usershub/valid_temp_user',
+      data: JSON.stringify({
+          token: token,
+          id_application: {{id_application}},
+      }),
+      contentType:"application/json; charset=utf-8",
+      dataType: "json",
+
+  }).done(function(response) {
+      console.log("validation done", response);
+      $("#validation-success").show();
+      $("#identifiant").val(response.identifiant)
+
+  }).fail(function(error) {
+
+      var msg = error.responseJSON ? error.responseJSON.msg : error.responseText;
+      $("#validation-error" ).html(msg);
+      $("#validation-error" ).show();
+
+  });
+
+  }
+
+</script>
+{%- endblock %}

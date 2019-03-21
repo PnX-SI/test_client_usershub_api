@@ -1,0 +1,33 @@
+
+{%- extends "base.html" %}
+{% include "librairies.html" %}
+
+{%- block content %}
+<div class="container main-zone ng-scope ">
+    <a href="{{ url_for('test_api_usershub.user_form')}}" class="btn btn-primary">Créer utilisateur</a>
+    <table  class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Ident</th>
+                <th scope="col">Droit</th>
+            </tr>
+        </thead>
+        <tbody>  
+            {% for user in users %}
+                <tr class="users-table">
+                    <th scope="row"><a href="{{ url_for('test_api_usershub.user_form', id_role=user.id_role) }}">U</a></th>
+                    <td>{{ user.nom_role }}</td>
+                    <td>{{ user.prenom_role }}</td>
+                    <td>{{ user.identifiant }}</td>
+                    <td>{{ user.id_droit_max }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{%- endblock %}

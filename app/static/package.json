@@ -1,0 +1,35 @@
+{
+  "name": "usershub",
+  "version": "2.0.0",
+  "description": "Test de l'api de userhub",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PnX-SI/test_client_usershub_api.git.git"
+  },
+  "keywords": [
+    "PnX",
+    "Geonature",
+    "Biodiversité",
+    "Parcs",
+    "nationaux"
+  ],
+  "author": "",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/PnX-SI/test_client_usershub_api/issues"
+  },
+  "homepage": "https://github.com/PnX-SI/test_client_usershub_api",
+  "dependencies": {
+    "bootstrap": "^4.1.3",
+    "popper.js": "^1.14.3",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.3.1"
+  }
+}

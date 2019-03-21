@@ -1,0 +1,5 @@
+Flask==1.0.2
+Flask-Mail==0.9.1
+Flask-SQLAlchemy==2.3.2
+psycopg2==2.7.5
+-e git+https://github.com/amandine-sahl/UsersHub-authentification-module.git@develop#egg=pypnusershub
