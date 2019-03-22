@@ -1,4 +1,4 @@
-# test_client_usershub_api
+# test client usershub api
 Application permettant de tester les fonctionnalités de l'api de usershub
 
 > Cette application est uniquement destinée à réaliser des tests et à donner un exemple d'utilisation de l'API. 
