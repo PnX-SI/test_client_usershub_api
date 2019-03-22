@@ -33,4 +33,5 @@ Aller sur la navigateur à l'adresse localhost:1234
 * Changement de mot de passe
 * Ajouter un utilisateur
 * Mette à jour un utilisateur
-* Changer le niveau de droit d'un utilisateur [TODO]
+* Changer le niveau de droit d'un utilisateur 
+* Rajouter le droit sur une application à un utilisateur existant [TODO]
