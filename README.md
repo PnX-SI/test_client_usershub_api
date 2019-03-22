@@ -1,7 +1,9 @@
 # test_client_usershub_api
 Application permettant de tester les fonctionnalités de l'api de usershub
 
-Cette application est uniquement destinée à réaliser des tests
+> Cette application est uniquement destinée à réaliser des tests et à donner un exemple d'utilisation de l'API. 
+
+Elle ne brille pas par sa qualité de code
 
 ## Prerequis
 Avoir une version de Userhub qui fonctionne.
@@ -34,4 +36,4 @@ Aller sur la navigateur à l'adresse localhost:1234
 * Ajouter un utilisateur
 * Mette à jour un utilisateur
 * Changer le niveau de droit d'un utilisateur 
-* Rajouter le droit sur une application à un utilisateur existant [TODO]
+* Rajouter le droit sur une application à un utilisateur existant
