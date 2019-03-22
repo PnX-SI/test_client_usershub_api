@@ -1,0 +1,91 @@
+
+{%- extends "base.html" %}
+{% include "librairies.html" %}
+
+{%- block content %}
+<div class="container main-zone ng-scope ">
+
+    <div id="info_error" style="display: none;" class="alert alert-danger">
+
+    </div>
+    <form id="form_user_profil">
+        <input type="hidden" id="id_role" value="{{user.id_role}}" >
+        <input type="hidden" id="id_application" value="{{id_application}}" >
+        <table class="table" id="user_information">
+            <tbody>
+                <tr>
+                    <th>Utilisateur</th>
+                    <td id="info_nom_role" class="info">{{user.nom_role}} {{user.prenom_role}}</td>
+                </tr>
+                <tr>
+                    <th>Droit actuel</th>
+                    <td id="info_droit_max" class="info">
+                        {{user.id_droit_max|string}}
+                        {%- for profil in profils %}
+                            {%- if profil.code_profil == user.id_droit_max|string %} - {{ profil.nom_profil }}{% endif %}
+                        {%- endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Nouveau droit</th>
+                    <td id="select_profil" class="info">
+                        <select title="Choisir profil" id="code_profil" >
+                            {%- for profil in profils%}
+                                <option value="{{profil.code_profil}}">{{profil.code_profil}} - {{ profil.nom_profil }}</option>
+                            {%- endfor %}
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button id="btn_validation"  class="input btn btn-success">Modifier droit</span></button>
+
+    </form>
+
+    <div id="info_register" style="display: none;">
+
+        <p class="alert alert-success">La modification est bien prise en compte.</p>
+        <p class="alert alert-info">Un e-mail a été envoyé.</p>
+    </div>
+    <a href="{{ url_for('test_api_usershub.users_list', id_role=user.id_role) }}">Retour à la liste des utilisateurs</a>
+
+</div>
+
+<script>
+
+var submit_form = function(e) {
+    e.preventDefault();
+    
+    var id_role = parseInt($("#id_role").val());
+    var id_application = parseInt($("#id_application").val());
+
+    var id_droit = $("#code_profil").val();
+
+    var data = {'id_role': id_role, 'id_droit': id_droit, 'id_application': id_application};
+
+    var url_post = '/pypn/register/post_usershub/change_application_right'
+
+    $.ajax( {
+      url : url_post,
+      type: 'POST',
+      data : JSON.stringify(data),
+      contentType:"application/json; charset=utf-8",
+      dataType:"json",
+    }).done(
+        function() {
+            $("#form_user_profil").hide();
+            $('#info_error').hide();
+            $("#info_register").show();
+        }
+    )
+    .fail(function(data){
+      var msg = data.responseJSON ? data.responseJSON.msg : data.responseText
+      console.log("fail", data, msg)
+      $("#info_error" ).html(msg);
+      $("#info_error").show();
+    });
+}
+
+$("#form_user_profil").submit(submit_form);
+</script>
+{%- endblock %}

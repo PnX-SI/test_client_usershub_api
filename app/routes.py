@@ -2,7 +2,7 @@ from flask import (
     Blueprint, render_template, request, session, url_for, redirect, current_app
 )
 
-from pypnusershub.db.models import User, AppUser
+from pypnusershub.db.models import User, AppUser, ProfilsForApp
 
 MAIL = current_app.config.get('MAIL', None)
 
@@ -12,6 +12,15 @@ bp = Blueprint('test_api_usershub', __name__)
 def get_user(id_role):
     user = User.query.get(id_role)
     return user
+
+def get_user_app(id_role, id_application):
+    user = AppUser.query.filter(
+        AppUser.id_application == id_application
+    ).filter(
+        AppUser.id_role == id_role
+    )
+    print(user)
+    return user.one()
 
 
 def get_users(id_application):
@@ -81,3 +90,25 @@ def change_password(token=None):
     '''
 
     return render_template('change_password.html', token=token)
+
+@bp.route('/change_privilege/<string:id_role>', methods=['GET'])
+def change_privilege(id_role):
+    '''
+        page pour changer le niveau de droit d'un utilisateur
+    '''
+    id_application = current_app.config.get('ID_APP', None)
+    user = get_user_app(id_role, id_application)
+    privileges = ProfilsForApp.query.filter(
+        ProfilsForApp.id_application==id_application
+    ).all()
+
+    profils = [
+        {"id_profil": p.profil.id_profil, "code_profil": p.profil.code_profil, "nom_profil":p.profil.nom_profil}
+        for p in privileges
+    ]
+    return render_template(
+        'change_privilege.html', 
+        user=user.as_dict(),
+        profils=profils, 
+        id_application=id_application
+    )

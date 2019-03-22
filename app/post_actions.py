@@ -131,7 +131,7 @@ def change_application_right(data):
     subject = ' modification de votre niveau de droit '
 
     msg_html = render_template(
-        'modules/oeasc/mail/change_application_right.html',
+        'mail/change_application_privilege.html',
         role=role,
         id_droit=id_droit
     )
