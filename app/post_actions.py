@@ -167,11 +167,38 @@ def create_cor_role_token(data):
         msg_html
     )
 
+def add_application_right_to_role(data):
+    role = data
+
+    if not role:
+
+        return {"msg": "Pas de role pour valid_temp_user"}
+
+    recipients = [role['email']]
+    subject = " Inscription à l'aplication "
+
+    url_login = config['URL_APPLICATION'] + url_for(
+        'test_api_usershub.login'
+    )
+
+    msg_html = render_template(
+        'mail/add_user_to_app.html',
+        role=role,
+        url_login=url_login
+    )
+
+    return send_mail(
+        recipients,
+        subject,
+        msg_html
+    )
+
 
 function_dict = {
     'create_cor_role_token': create_cor_role_token,
     'create_temp_user': create_temp_user,
     'valid_temp_user': valid_temp_user,
     'change_application_right': change_application_right,
-    'update_user': update_user
+    'update_user': update_user,
+    'add_application_right_to_role': add_application_right_to_role
 }

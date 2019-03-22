@@ -1,0 +1,59 @@
+
+{%- extends "base.html" %}
+{% include "librairies.html" %}
+
+{%- block content %}
+<div class="container main-zone ng-scope ">
+
+    <div class="alert alert-danger" role="alert" id="add_user_to_app-error"></div>
+    <div class="form-horizontal" id="formadd_user_to_app">
+        <input type="hidden" name="" id="id_application" value="{{id_application}}">
+        <div class="form-group">
+        <label for="user_id">Identifiant:</label>
+        <input type="text" class="form-control" id="user_id">
+        </div>
+        <div class="form-group">
+        <label for="pwd">Mot de passe:</label>
+        <input type="password" class="form-control" id="user_pwd">
+        </div>
+        <button onclick="add_user_to_app()" id="submit" class="btn btn-success">S'inscrire à l'application</button>
+    </div>
+
+    <div id="info_register" style="display: none;">
+
+        <p class="alert alert-success">La modification est bien prise en compte.</p>
+        <p class="alert alert-info">Un e-mail a été envoyé.</p>
+        <a href="{{ url_for('test_api_usershub.login') }}">Retour à la page de connexion</a>
+    </div>
+
+</div>
+
+<script>
+$("#add_user_to_app-error").hide();
+
+add_user_to_app = function() {
+    $("#add_user_to_app-error").hide();
+    $.post({
+        url : '/pypn/register/post_usershub/add_application_right_to_role',
+        data : JSON.stringify ({
+            "id_application": $('#id_application').val(),
+            "login": $('#user_id').val(),
+            "password" : $('#user_pwd').val()
+        }),
+        contentType:"application/json; charset=utf-8",
+        dataType:"json",
+        success: function(response){
+            console.log(response);
+            $("#info_register" ).show();
+        },
+        error: function(data){
+            var msg = data.responseJSON ? data.responseJSON.msg : data.responseText
+            $("#add_user_to_app-error").html(msg);
+            $("#add_user_to_app-error" ).show();
+            console.log(error);
+        }
+    });
+};
+
+</script>
+{%- endblock %}

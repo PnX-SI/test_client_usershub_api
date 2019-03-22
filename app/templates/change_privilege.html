@@ -35,6 +35,7 @@
                             {%- endfor %}
                         </select>
                     </td>
+
                 </tr>
             </tbody>
         </table>
@@ -55,7 +56,7 @@
 
 var submit_form = function(e) {
     e.preventDefault();
-    
+
     var id_role = parseInt($("#id_role").val());
     var id_application = parseInt($("#id_application").val());
 
