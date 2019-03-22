@@ -16,6 +16,17 @@ Pour le moment la version fonctionnelle est la branche develop de https://github
 
 Ouvrir et modifier le fichier `config.py`
 
+Pour le moment l'application ne fonctionne qu'avec la version develop du module pypnusershub du dépot https://github.com/amandine-sahl/UsersHub-authentification-module
+
+## Lancer l'application
+
+```
+ source venv/bin/activate
+ python server.py
+```
+Aller sur la navigateur à l'adresse localhost:1234
+
+
 ## Fonctionnalités
 
 * Login
