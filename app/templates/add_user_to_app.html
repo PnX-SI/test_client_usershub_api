@@ -43,7 +43,7 @@ add_user_to_app = function() {
         contentType:"application/json; charset=utf-8",
         dataType:"json",
         success: function(response){
-            console.log(response);
+            $("#formadd_user_to_app" ).hide();
             $("#info_register" ).show();
         },
         error: function(data){
