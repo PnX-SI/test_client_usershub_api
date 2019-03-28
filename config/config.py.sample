@@ -9,7 +9,9 @@ ADMIN_APPLICATION_PASSWORD="admin"
 ADMIN_APPLICATION_MAIL="admin@test.fr"
 
 ID_APP=1
-
+# Identifiant du groupe auquel seront associés les utilisateurs créés
+# Si non spécifié profil 1 attribué aux utilisateurs
+ID_GRP=7
 
 SECRET_KEY = 'super secret key'
 

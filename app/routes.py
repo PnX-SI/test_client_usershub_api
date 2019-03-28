@@ -81,7 +81,8 @@ def create_user():
     return render_template(
         'create_user.html',
         token=token,
-        id_application=current_app.config.get('ID_APP', None)
+        id_application=current_app.config.get('ID_APP', None),
+        id_grp=current_app.config.get('ID_GRP', None)
     )
 
 
@@ -125,5 +126,6 @@ def add_user_to_app():
     id_application = current_app.config.get('ID_APP', None)
     return render_template(
         'add_user_to_app.html',
-        id_application=id_application
+        id_application=id_application,
+        id_grp=current_app.config.get('ID_GRP', None)
     )
