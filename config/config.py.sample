@@ -1,7 +1,7 @@
 
 SQLALCHEMY_DATABASE_URI = "postgresql://monuser:monpassachanger@localhost:5432/mabase"
 
-URL_USERHUB="http://localhost:5001"
+URL_USERSHUB="http://localhost:5001"
 URL_APPLICATION="http://localhost:1234"
 # Administrateur de mon application
 ADMIN_APPLICATION_LOGIN="admin"
@@ -9,9 +9,7 @@ ADMIN_APPLICATION_PASSWORD="admin"
 ADMIN_APPLICATION_MAIL="admin@test.fr"
 
 ID_APP=1
-# Identifiant du groupe auquel seront associés les utilisateurs créés
-# Si non spécifié profil 1 attribué aux utilisateurs
-ID_GRP=7
+
 
 SECRET_KEY = 'super secret key'
 

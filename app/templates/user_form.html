@@ -149,6 +149,7 @@
     var url_post;
     if(!user.id_role) {
       url_post = '/pypn/register/post_usershub/create_temp_user'
+      data.url_confirmation = "super"
       done = function(response) {
         $("#info_error").hide();
         $('#form_user').hide();

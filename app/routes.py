@@ -1,5 +1,7 @@
+import requests
+
 from flask import (
-    Blueprint, render_template, request, session, url_for, redirect, current_app
+    Blueprint, render_template, request, current_app
 )
 
 from pypnusershub.db.models import User, AppUser, ProfilsForApp
@@ -81,8 +83,7 @@ def create_user():
     return render_template(
         'create_user.html',
         token=token,
-        id_application=current_app.config.get('ID_APP', None),
-        id_grp=current_app.config.get('ID_GRP', None)
+        id_application=current_app.config.get('ID_APP', None)
     )
 
 
@@ -92,8 +93,21 @@ def change_password(token=None):
     '''
         page pour recreer un mot de passe
     '''
+    # test si le token est toujours valide
 
-    return render_template('change_password.html', token=token)
+    # Si pas de token => étape 1 demande de changement de mot passe
+    if not token:
+        return render_template('change_password.html')
+
+    # Si token => étape 2 formulaire de changement de mot de passe
+    # Test si le token est toujours valide
+    r = requests.post(
+        current_app.config['URL_USERSHUB'] + "/api_register/check_token",
+        json={'token': token}
+    )
+    if r.status_code == 200:
+        return render_template('change_password.html', token=token)
+    return render_template('change_password.html', token_expire=True)
 
 @bp.route('/change_privilege/<string:id_role>', methods=['GET'])
 def change_privilege(id_role):
@@ -104,9 +118,9 @@ def change_privilege(id_role):
     user = get_user_app(id_role, id_application)
     if not user:
         user = get_user(id_role)
-    print(user.as_dict())
+
     privileges = ProfilsForApp.query.filter(
-        ProfilsForApp.id_application==id_application
+        ProfilsForApp.id_application == id_application
     ).all()
 
     profils = [
@@ -126,6 +140,5 @@ def add_user_to_app():
     id_application = current_app.config.get('ID_APP', None)
     return render_template(
         'add_user_to_app.html',
-        id_application=id_application,
-        id_grp=current_app.config.get('ID_GRP', None)
+        id_application=id_application
     )

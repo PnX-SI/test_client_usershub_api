@@ -31,10 +31,6 @@
 <script>
 $("#add_user_to_app-error").hide();
 
-
-var id_grp = "{{ id_grp }}";
-
-
 add_user_to_app = function() {
     var data = {
         "id_application": $('#id_application').val(),
@@ -42,9 +38,6 @@ add_user_to_app = function() {
         "password" : $('#user_pwd').val()
     };
 
-    if (id_grp) {
-        data["id_grp"] = id_grp
-    }
     $("#add_user_to_app-error").hide();
     $.post({
         url : '/pypn/register/post_usershub/add_application_right_to_role',

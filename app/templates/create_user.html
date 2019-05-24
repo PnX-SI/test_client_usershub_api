@@ -14,15 +14,11 @@
       <script>
 
       var token = "{{ token }}";
-      var id_grp = "{{ id_grp }}";
       var data = {
           "token": token,
           "id_application": {{id_application}}
       };
 
-      if (id_grp) {
-          data["id_grp"] = id_grp
-      }
 
       if (token) {
 

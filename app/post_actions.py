@@ -14,7 +14,9 @@ bp = Blueprint('oeasc_api_mail', __name__)
 
 
 def send_mail(recipients, subject, msg_html):
-
+    """
+        Fonction générique d'envoi de mail
+    """
     if not MAIL and config.get('ANIMATEUR_APPLICATION_MAIL', None):
 
         return {"msg": "les paramètres d'envoi de mail ne sont pas correctement définis"}
@@ -38,17 +40,22 @@ def send_mail(recipients, subject, msg_html):
 
 
 def create_temp_user(data):
+    """
+       Action à réaliser après la demande de création de compte
 
+    """
     token = data.get('token', None)
 
     role = DB.session.query(TempUser).filter(TempUser.token_role == token).first()
 
     if not role:
-
-        return {"msg": token + " : ce token n'est pas associé à un compte temporaire"}
+        return {
+            "msg": "{token}: ce token n'est pas associé à un compte temporaire".format(
+                token=token
+            )
+        }
 
     url_validation = config['URL_APPLICATION'] + url_for('test_api_usershub.create_user', token=token)
-
     recipients = [role.email]
     subject = 'demande de création de compte'
     msg_html = render_template(
@@ -66,7 +73,9 @@ def create_temp_user(data):
 
 
 def valid_temp_user(data):
-
+    """
+       Action à réaliser après la validation d'un compte
+    """
     role = data
 
     if not role:
@@ -91,7 +100,9 @@ def valid_temp_user(data):
 
 
 def update_user(data):
-
+    """
+       Action à réaliser après la mise à jour de donnée d'un utilisateur
+    """
     role = data
 
     if not role:
@@ -101,7 +112,6 @@ def update_user(data):
         config['ANIMATEUR_APPLICATION_MAIL'], config['ADMIN_APPLICATION_MAIL']
     ]
     subject = '[ANIMATEUR] Modification d'' un utilisateur'
-    print(role)
     msg_html = "<p>Un utilisateur à modifier ses informations</p>"
     msg_html += "<hr><p>Identifiant : {}</p><p>E-mail : {}</p><p>Nom : {}</p><p>Prenom : {}</p>".format(
         role['identifiant'].strip(),
@@ -118,7 +128,9 @@ def update_user(data):
 
 
 def change_application_right(data):
-
+    """
+       Action à réaliser après la modification des droits sur l'application d'un utilisateur
+    """
     role = data['role']
 
     id_droit = data['id_droit']

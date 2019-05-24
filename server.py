@@ -37,13 +37,16 @@ with app.app_context():
             session["current_user"] = current_user["user"]
 
         return response
-    
+
     from app.post_actions import function_dict
     app.config['after_USERSHUB_request'] = function_dict
 
+    # from app.before_actions import function_dict
+    # app.config['before_USERSHUB_request'] = function_dict
+
     from app import routes
     app.register_blueprint(routes.bp, url_prefix='/')
-    
+
     from pypnusershub import routes_register
     app.register_blueprint(routes_register.bp, url_prefix='/pypn/register')
     from pypnusershub import routes
